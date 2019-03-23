@@ -1,12 +1,21 @@
-<section class="main" *ngIf="todos.length > 0">
-  <ul class="todo-list">
-    <li *ngFor="let todo of todos" [class.completed]="todo.complete">
+<section class="main" *ngIf="todos.length > 0" style="margin-top: 50px">
+  <table class="todo-list table table-striped table-bordered table-hover table-fixed">
+    <thead>
+      <tr>
+        <th >Concluído</th>
+        <th >Tarefa</th>
+        <th ></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos" [class.completed]="todo.complete">
 
-      <app-todo-list-item
-        [todo]="todo"
-        (toggleComplete)="onToggleComplete($event)"
-        (remove)="onRemoveTodo($event)"></app-todo-list-item>
+        <app-todo-list-item
+          [todo]="todo"
+          (toggleComplete)="onToggleComplete($event)"
+          (remove)="onRemoveTodo($event)"></app-todo-list-item>
 
-    </li>
-  </ul>
+      </tr>
+    </tbody>  
+  </table>
 </section>
