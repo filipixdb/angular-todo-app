@@ -5,9 +5,8 @@ import { Todo } from './todo';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-// const API_URL = environment.apiUrl;
-const API_URL = 'https://localhost:5001';
-
+const API_URL = environment.apiUrl;
+const API_END_POINT = '/api/todo';
 
 
 @Injectable()
@@ -34,8 +33,7 @@ export class ApiService {
   // }
 
   public getAllTodos(): Observable<Todo[]> {
-    console.log("url da api: " + API_URL);
-    return this.http.get(API_URL + '/todo')
+    return this.http.get(API_URL + API_END_POINT + '')
       .pipe(
         map(response => {
           const todos = response.json();
@@ -59,7 +57,7 @@ export class ApiService {
   // }
   
   public createTodo(todo: Todo): Observable<Todo> {
-    return this.http.post(API_URL + '/todo', todo)
+    return this.http.post(API_URL + API_END_POINT, todo)
       .pipe(
         map(response => {
           return new Todo(response.json());
@@ -80,7 +78,7 @@ export class ApiService {
   // }
 
   public getTodoById(todoId: number): Observable<Todo> {
-    return this.http.get(API_URL + "/todo/" + todoId)
+    return this.http.get(API_URL + API_END_POINT + "/" + todoId)
       .pipe(
         map(response => {
           return new Todo(response.json());
@@ -101,7 +99,7 @@ export class ApiService {
   // }
 
   public updateTodo(todo: Todo): Observable<Todo> {
-    return this.http.put(API_URL + '/todo/' + todo.id, todo)
+    return this.http.put(API_URL + API_END_POINT + '/' + todo.id, todo)
       .pipe(
         map(response => {
           return new Todo(response.json());
@@ -120,7 +118,7 @@ export class ApiService {
   // }
 
   public deleteTodoById(todoId: number): Observable<null> {
-    return this.http.delete(API_URL + '/todo/' + todoId)
+    return this.http.delete(API_URL + API_END_POINT + '/' + todoId)
       .pipe(
         map(response => null),
         catchError(this.handleError)
