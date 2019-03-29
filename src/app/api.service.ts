@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 const API_URL = environment.apiUrl;
-const API_END_POINT = '/api/todo';
-
+const API_END_POINT = environment.apiEndPoint;
 
 @Injectable()
 export class ApiService {
@@ -42,8 +41,6 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
-
-
 
 
   // API: POST /todos
