@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { TodoDataService } from '../todo-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todos',
@@ -12,14 +14,19 @@ export class TodosComponent implements OnInit {
 
   todos: Todo[] = [];
 
-  constructor(private todoDataService: TodoDataService) {
+  constructor(
+    private todoDataService: TodoDataService,
+    private route: ActivatedRoute
+    ) {
   }
 
   public ngOnInit() {
-    this.todoDataService.getAllTodos()
-      .subscribe(
+    // this.todoDataService.getAllTodos()
+    this.route.data.pipe(
+      map( (data) => data['todos'])
+    ).subscribe(
         (todos) => { this.todos = todos; }
-      )
+      );
   }
 
   onAddTodo(todo: Todo) {
